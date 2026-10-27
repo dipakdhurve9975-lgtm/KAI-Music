@@ -1,8 +1,0 @@
-<resources>
-    <string name="kai_replay">Replay</string>
-    <string name="kai_open_player">Open Now Playing</string>
-    <string name="kai_display_modes">Player display</string>
-    <string name="kai_lyrics_empty_title">Every song has a story</string>
-    <string name="kai_lyrics_empty_body">Lyrics are not available for this track. Keep listening, or try another lyrics source from the player menu.</string>
-    <string name="kai_lyrics_loading">Finding the words…</string>
-</resources>

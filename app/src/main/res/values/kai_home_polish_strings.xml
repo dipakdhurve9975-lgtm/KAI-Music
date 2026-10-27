@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="kai_taste_mix">Taste Mix</string>
-  <string name="kai_home_load_error">Couldn’t load recommendations. Try again.</string>
-  <string name="kai_home_refresh_error">Couldn’t refresh recommendations. Your music is still here.</string>
-  <string name="kai_home_more_error">Couldn’t load more music.</string>
-</resources>
