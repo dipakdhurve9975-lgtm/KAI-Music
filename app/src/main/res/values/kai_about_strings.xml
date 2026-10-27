@@ -1,0 +1,27 @@
+<resources>
+    <string name="kai_about_tagline">Music, beautifully experienced.</string>
+    <string name="kai_about_version">Version %1$s · %2$s</string>
+    <string name="kai_channel_development">Development</string>
+    <string name="kai_channel_nightly">Nightly</string>
+    <string name="kai_channel_stable">Stable</string>
+    <string name="kai_about_developer">Developer</string>
+    <string name="kai_about_support">Support</string>
+    <string name="kai_about_community">Community</string>
+    <string name="kai_link_website">Website</string>
+    <string name="kai_link_instagram">Instagram</string>
+    <string name="kai_link_github">GitHub</string>
+    <string name="kai_link_discord">Discord</string>
+    <string name="kai_link_coffee">Buy Me a Coffee</string>
+    <string name="kai_link_upi">UPI</string>
+    <string name="kai_link_telegram">Telegram</string>
+    <string name="kai_link_coming_soon">Coming soon</string>
+    <string name="kai_link_unavailable">No app is available to open this link.</string>
+    <string name="kai_about_legal_title">Open-source software</string>
+    <string name="kai_about_legal_description">KAI includes software licensed under GPL-3.0. Original source licenses and contributor notices are preserved in the project.</string>
+    <string name="kai_welcome_description">Your music, your way. Switch between Vinyl, Normal and Lyrics in the player, with your library, downloads and playback settings in one place.</string>
+    <string name="kai_welcome_continue">Start listening</string>
+    <string name="kai_about_back">Go back</string>
+    <string name="kai_update_website_unconfigured">The KAI download website is not configured yet.</string>
+    <string name="kai_update_website_description">Open the configured KAI website to download an update.</string>
+    <string name="kai_update_action">Update</string>
+</resources>

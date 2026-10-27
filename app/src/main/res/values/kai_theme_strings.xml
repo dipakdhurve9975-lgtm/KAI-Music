@@ -1,0 +1,7 @@
+<resources>
+    <string name="kai_theme_brand">KAI</string>
+    <string name="kai_theme_brand_description">Signature rose colors with calm, warm surfaces.</string>
+    <string name="kai_theme_system">System colors</string>
+    <string name="kai_theme_system_description">Use your device colors when available.</string>
+    <string name="kai_theme_custom_description">Choose the hue, saturation and brightness.</string>
+</resources>

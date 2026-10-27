@@ -1,0 +1,52 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+.kotlin/
+
+# Mac
+.DS_Store
+
+# build folders
+build/
+app/build/
+androidApp/build/
+composeApp/build/
+cast/build/
+cast-empty/build/
+crashlytics/build/
+crashlytics-empty/build/
+lastfm/build/
+lastfm-empty/build/
+*/build/
+
+# Gradle
+.gradle/
+
+# Kotlin Multiplatform
+/.kotlin
+
+# Logs
+*.log
+
+# Reference source repositories (never commit)
+BitChord-main/
+ArchiveTune-main/
+
+# Local credentials and signing material must never be published
+*.jks
+*.keystore
+*.p12
+*.p8
+*.pem
+.env
+.env.*
+**/google-services.json
+keystore.properties
+signing.properties
