@@ -42,4 +42,4 @@ The APK is generated under `app/build/outputs/apk/universalGms/debug/`. On Windo
 
 ## License
 
-[GPL-3.0](LICENSE). Source and third-party notices are available in [NOTICE.md](NOTICE.md).
+[GPL-3.0](LICENSE).
