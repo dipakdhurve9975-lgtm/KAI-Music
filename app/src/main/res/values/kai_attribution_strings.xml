@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modified for KAI Music on 2026-10-28; see MODIFICATIONS.md. -->
+<resources>
+    <string name="kai_independent_tagline">An independent open-source music experience.</string>
+    <string name="kai_origins_heading">Our origins</string>
+    <string name="kai_origins_title">Built Upon Echo Music</string>
+    <string name="kai_origins_summary">KAI Music is an independent modification of Echo Music, an open-source Android music application.</string>
+    <string name="kai_origins_detail">Our journey began with the incredible work of the Echo Music developers and contributors.\n\nTheir creativity and dedication to open-source software inspired us to experiment, learn, modify, and continue improving the music listening experience.\n\nKAI builds upon that foundation through independent development, customization, and additional improvements.</string>
+    <string name="kai_original_thanks_heading">Special thanks</string>
+    <string name="kai_original_thanks_title">Special Thanks to the Original Creator</string>
+    <string name="kai_original_thanks_summary">A sincere thank you to Aditya and every contributor who helped create Echo Music. Your work became the foundation and inspiration behind KAI Music.</string>
+    <string name="kai_original_thanks_detail">The time, creativity, and dedication you invested in open-source development made projects like KAI possible.\n\nThank you for sharing your work with the community and inspiring others to learn, experiment, and build upon it.\n\nWe deeply appreciate your contribution.</string>
+    <string name="kai_original_github">Original GitHub</string>
+    <string name="kai_original_repository">Echo Music Repository</string>
+    <string name="kai_view_contributors">View Contributors</string>
+    <string name="kai_development_heading">KAI development</string>
+    <string name="kai_development_title">Independent Development</string>
+    <string name="kai_development_description">KAI is independently modified and maintained by @dipakdhurve9975-lgtm. The KAI player, visual identity and customizations build on the original project. Our maintainer and community links follow below.</string>
+    <string name="kai_license_heading">Open-source license</string>
+    <string name="kai_license_title">Licensed under GNU GPL v3.0</string>
+    <string name="kai_license_description">Original copyrights remain with their respective owners. GPL-covered KAI modifications are distributed under GNU GPL-3.0, without warranty. Third-party components retain their own licenses.</string>
+    <string name="kai_view_license">View License</string>
+    <string name="kai_view_source">View Source Code</string>
+    <string name="kai_original_project">Original Project</string>
+    <string name="kai_bundled_notices">Bundled notices</string>
+    <string name="kai_independence_disclaimer">KAI is not an official Echo Music release and is not affiliated with or endorsed by its original developers. Third-party services and content remain subject to their own terms and applicable laws.</string>
+    <string name="kai_read_more">Read more</string>
+    <string name="kai_read_less">Read less</string>
+    <string name="kai_license_close">Close</string>
+    <string name="kai_license_unavailable">License text could not be loaded. The source repository includes the license and notices.</string>
+    <string name="kai_manual_updates">View KAI releases</string>
+    <string name="kai_manual_updates_description">Choose and download an update on GitHub. Installation is always manual.</string>
+</resources>

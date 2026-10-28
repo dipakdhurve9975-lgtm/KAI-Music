@@ -1,0 +1,14 @@
+[
+  {
+    "file": "app/src/main/kotlin/com/music/echo/utils/potoken/PoTokenWebView.kt",
+    "kind": "literal-service-credential",
+    "match_sha256": "61de253bbfcdfc6fe4ed7f60ed1692b0f3bca86080ae063d44e044f81131ac86",
+    "reason": "Inherited public YouTube web-client API identifier used for PoToken requests, not a KAI owner/server credential. Retained for playback compatibility; this exception applies only to this exact match, not other keys."
+  },
+  {
+    "file": "app/src/test/kotlin/echo/music/iad1tya/branding/KaiLinkConfigurationTest.kt",
+    "kind": "credential-in-url",
+    "match_sha256": "093866188144b0216fb125431572e8ac2df8980dfeeb6ebeb3d9f3987d1e4c1d",
+    "reason": "Synthetic reserved example.org URL used to test rejection of credential-bearing links; not an actual account."
+  }
+]

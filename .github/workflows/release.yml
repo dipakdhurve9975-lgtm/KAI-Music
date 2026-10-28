@@ -1,0 +1,120 @@
+# Modified for KAI Music on 2026-10-28; GPL-3.0. Creates drafts, never publishes.
+name: Prepare approved KAI release
+on:
+  push:
+    tags: ['kai-v*', 'kai-preview-*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing approved tag matching the source version
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: kai-release-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.repository == 'dipakdhurve9975-lgtm/KAI-Music' && vars.KAI_RELEASE_AUTOMATION_ENABLED == 'true'
+    environment: kai-release
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    env:
+      RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+      KAI_PREVIOUS_VERSION_CODE: ${{ vars.KAI_PREVIOUS_VERSION_CODE || '168' }}
+      KAI_STABLE_RELEASES_ENABLED: ${{ vars.KAI_STABLE_RELEASES_ENABLED }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Resolve approved source tag
+        run: |
+          if [[ "$RELEASE_TAG" =~ ^kai-preview-[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo 'CHANNEL=preview' >> "$GITHUB_ENV"
+          elif [[ "$RELEASE_TAG" =~ ^kai-v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            test "$KAI_STABLE_RELEASES_ENABLED" = true
+            echo 'CHANNEL=stable' >> "$GITHUB_ENV"
+          else
+            echo 'Tag is not an approved KAI version format'; exit 1
+          fi
+          git show-ref --verify "refs/tags/$RELEASE_TAG"
+          git checkout --detach "refs/tags/$RELEASE_TAG"
+          git merge-base --is-ancestor HEAD origin/main
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Validate source and tag
+        run: |
+          python3 scripts/release_tools.py validate-tag --tag "$RELEASE_TAG" --channel "$CHANNEL"
+          python3 scripts/release_tools.py scan
+          python3 -m unittest discover -s scripts/tests -v
+      - name: Install SDK and NDK
+        run: sdkmanager 'platforms;android-37.0' 'build-tools;36.0.0' 'ndk;28.2.13676358'
+      - name: Restore existing approved signing identity
+        env:
+          PREVIEW_KEY: ${{ secrets.KAI_PREVIEW_KEYSTORE_BASE64 }}
+          RELEASE_KEY: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          umask 077
+          if [[ "$CHANNEL" == preview ]]; then
+            test -n "$PREVIEW_KEY" || { echo 'Existing preview keystore required; no replacement key will be generated'; exit 1; }
+            mkdir -p "$HOME/.android"
+            printf '%s' "$PREVIEW_KEY" | base64 --decode > "$HOME/.android/debug.keystore"
+          else
+            test -n "$RELEASE_KEY" || { echo 'Existing production keystore required'; exit 1; }
+            printf '%s' "$RELEASE_KEY" | base64 --decode > keystore.jks
+          fi
+      - name: Build and validate
+        env:
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:testUniversalGmsDebugUnitTest :core:testDebugUnitTest :lyrics:testDebugUnitTest :youlyplus:testDebugUnitTest -PkaiPublicBuild=true -PFLOW_NEURO_API_KEY= --max-workers=2 --console=plain
+          if [[ "$CHANNEL" == preview ]]; then
+            ./gradlew :app:assembleUniversalGmsDebug -PkaiPublicBuild=true -PFLOW_NEURO_API_KEY= --max-workers=2 --console=plain
+          else
+            ./gradlew :app:assembleUniversalGmsRelease -PkaiPublicBuild=true -PFLOW_NEURO_API_KEY= --max-workers=2 --console=plain
+          fi
+      - name: Verify APK, signer and corresponding source
+        env:
+          PREVIEW_CERT: ${{ vars.KAI_PREVIEW_SIGNER_SHA256 }}
+          RELEASE_CERT: ${{ vars.KAI_RELEASE_SIGNER_SHA256 }}
+        run: |
+          if [[ "$CHANNEL" == preview ]]; then
+            export KAI_EXPECTED_SIGNER_SHA256="$PREVIEW_CERT"
+            mapfile -t apks < <(find app/build/outputs/apk/universalGms/debug -maxdepth 1 -name '*.apk')
+          else
+            export KAI_EXPECTED_SIGNER_SHA256="$RELEASE_CERT"
+            mapfile -t apks < <(find app/build/outputs/apk/universalGms/release -maxdepth 1 -name '*.apk')
+          fi
+          test "${#apks[@]}" = 1
+          python3 scripts/prepare_release.py --apk "${apks[0]}" --tag "$RELEASE_TAG" --channel "$CHANNEL" --build-tools "$ANDROID_HOME/build-tools/36.0.0" --output "$RUNNER_TEMP/kai-release"
+      - name: Create a new draft with verified artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os, sys, urllib.error
+          sys.path.insert(0, 'scripts')
+          from release_tools import api, REPO
+          try:
+              api(f'/repos/{REPO}/releases/tags/{os.environ["RELEASE_TAG"]}')
+          except urllib.error.HTTPError as error:
+              if error.code != 404: raise
+          else:
+              raise SystemExit('Release already exists; refusing to overwrite')
+          PY
+          flags=(--draft --verify-tag --latest=false)
+          if [[ "$CHANNEL" == preview ]]; then flags+=(--prerelease); fi
+          gh release create "$RELEASE_TAG" "$RUNNER_TEMP/kai-release/"* --repo "$GITHUB_REPOSITORY" --title "KAI Music $RELEASE_TAG" --notes-file "$RUNNER_TEMP/kai-release/RELEASE_NOTES.md" "${flags[@]}"
+      - name: Remove restored signing material
+        if: always()
+        run: |
+          rm -f -- keystore.jks "$HOME/.android/debug.keystore"

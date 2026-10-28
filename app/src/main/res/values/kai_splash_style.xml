@@ -1,0 +1,11 @@
+<!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. --><resources>
+    <!-- AndroidX uses the supported native splash on API31+ and its compatible static icon below. -->
+    <style name="Theme.Kai.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/kai_splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/kai_mark</item>
+        <item name="postSplashScreenTheme">@style/Theme.echomusic</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">@color/kai_splash_background</item>
+        <item name="android:navigationBarColor">@color/kai_splash_background</item>
+    </style>
+</resources>

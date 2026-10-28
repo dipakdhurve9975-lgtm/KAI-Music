@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?><!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@drawable/kai_icon_background" />
+    <foreground android:drawable="@drawable/kai_mark" />
+    <monochrome android:drawable="@drawable/kai_mark_monochrome" />
+</adaptive-icon>

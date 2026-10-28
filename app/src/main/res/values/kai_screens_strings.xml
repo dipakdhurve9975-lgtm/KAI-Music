@@ -1,0 +1,18 @@
+<!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. --><resources>
+    <string name="kai_listen_now">Listen Now</string>
+    <string name="kai_listen_subtitle">A little closer to the music you love.</string>
+    <string name="kai_home_empty_title">Your next favorite is waiting</string>
+    <string name="kai_home_empty_description">Search for music or open your library. Your listening history and saved music will help shape this space.</string>
+    <string name="kai_library_subtitle">Your music, collected.</string>
+    <string name="kai_search_subtitle">Find a song. Follow a feeling.</string>
+    <string name="kai_clear_search">Clear search</string>
+    <string name="kai_settings_subtitle">Make KAI feel like you.</string>
+    <string name="kai_settings_account_group">Your account</string>
+    <string name="kai_settings_activity_group">Listening activity</string>
+    <string name="kai_settings_experience_group">Your experience</string>
+    <string name="kai_settings_data_group">Library and data</string>
+    <string name="kai_settings_app_group">KAI and system</string>
+    <string name="kai_search_library_title">Search your collection</string>
+    <string name="kai_search_library_description">Find songs, albums, artists, and playlists saved in your library.</string>
+    <string name="kai_search_no_results_description">Try another title, artist, or album.</string>
+</resources>

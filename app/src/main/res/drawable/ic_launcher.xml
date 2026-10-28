@@ -1,0 +1,4 @@
+<!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. --><layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/kai_icon_background" />
+    <item android:drawable="@drawable/kai_mark" />
+</layer-list>

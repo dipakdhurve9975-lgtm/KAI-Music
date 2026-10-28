@@ -1,0 +1,33 @@
+[
+  {
+    "asset": "licenses/outfit-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/outfit/OFL.txt",
+    "sha256": "c676351bf8576b9aba743cd5eaa8c0e7ee0d51f805d720447b4df4ddb6a2e416"
+  },
+  {
+    "asset": "licenses/bbh-bartle-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/bbhbartle/OFL.txt",
+    "sha256": "f9e9e63de5a83078dd630aff864065ca9fa8706d416e9e66bbe4574dcddfed2b"
+  },
+  {
+    "asset": "licenses/google-sans-flex-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/googlesansflex/OFL.txt",
+    "sha256": "fc13d69f63e36d284b6e383d4d1463d8ad404f0aa065e57cf961252d51063137"
+  },
+  {
+    "asset": "licenses/google-sans-flex-TRADEMARKS.md",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/googlesansflex/TRADEMARKS.md",
+    "sha256": "5cad381c0828db656f32a787a1eff76db3303c74ec4f94668ae9fc2873ffe42f"
+  },
+  {
+    "asset": "licenses/Apache-2.0.txt",
+    "source": "https://raw.githubusercontent.com/elyesmansour/compose-floating-tab-bar/main/LICENSE",
+    "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1"
+  },
+  {
+    "asset": "font/google_sans_flex.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/googlesansflex/GoogleSansFlex%5BROND%2Copsz%2Cslnt%2Cwdth%2Cwght%5D.ttf",
+    "git_blob_sha": "1d8d8ae5a7c6d0e48312d2a0a478bad92caee73a",
+    "sha256": "a9ac770798857d5e8ac593ced42b22e40a7c08cec98319f92b0eccc2783a77ba"
+  }
+]

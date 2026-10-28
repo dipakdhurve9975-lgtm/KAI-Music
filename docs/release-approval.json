@@ -1,0 +1,11 @@
+{
+  "version": "1.4.8",
+  "stable_distribution_reviewed": false,
+  "unresolved_blockers": [
+    "Review inherited third-party artwork, photographs and optional icon permissions",
+    "Resolve native FFmpeg/youtubedl license and corresponding-source obligations for exact artifacts",
+    "Review GMS/proprietary dependency compatibility and full transitive license inventory",
+    "Complete connected-device regression checks, including lyrics progression",
+    "Confirm intended production application ID/signing update path separately from debug preview"
+  ]
+}

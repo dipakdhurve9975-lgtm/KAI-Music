@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. -->
+<resources>
+    <string name="kai_lyrics_font">Lyric font</string>
+    <string name="kai_lyrics_font_system">System</string>
+    <string name="kai_lyrics_font_jakarta">Jakarta</string>
+    <string name="kai_lyrics_font_outfit">Outfit</string>
+    <string name="kai_lyrics_font_serif">Editorial serif</string>
+    <string name="kai_lyrics_glow">Soft glow</string>
+    <string name="kai_lyrics_font_preview">Feel every word · हर शब्द</string>
+    <string name="kai_lyrics_appearance">Lyrics style &amp; font</string>
+    <string name="kai_lyrics_appearance_description">Presentation styles, lyric fonts and soft glow</string>
+</resources>

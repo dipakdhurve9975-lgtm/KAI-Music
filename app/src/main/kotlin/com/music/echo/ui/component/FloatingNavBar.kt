@@ -1,0 +1,288 @@
+/* KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. */ /** vivimusic Project (C) 2026 Licensed under GPL-3.0 | See git history for contributors */
+@file:OptIn(ExperimentalSharedTransitionApi::class, ExperimentalMaterial3ExpressiveApi::class)
+
+package echo.music.iad1tya.ui.component
+
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.isSpecified
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
+import echo.music.iad1tya.ui.component.floatingtabbar.FloatingTabBar
+import echo.music.iad1tya.ui.component.floatingtabbar.FloatingTabBarDefaults
+import echo.music.iad1tya.ui.component.floatingtabbar.FloatingTabBarScrollConnection
+import echo.music.iad1tya.ui.player.FloatingMiniPlayer
+import echo.music.iad1tya.ui.player.kaiMiniPlayerSurface
+import echo.music.iad1tya.ui.screens.Screens
+import echo.music.iad1tya.ui.theme.KaiShapes
+
+/**
+ * The iOS 26 style floating navigation bar, an alternative to [AppNavigationBar].
+ *
+ * Collapses to an inline pill while scrolling down (driven by [scrollConnection]) and expands back
+ * on scroll up. The search destination is rendered as the standalone circular tab. When the liquid
+ * glass effect is enabled for the navigation bar, the tab
+ *
+ * When [showPlayerAccessory] is true the now playing controls dock into the bar as an accessory (a
+ * pill above the tabs when expanded, inline between the tab pill and the search tab when collapsed)
+ * and [onAccessoryClick] opens the full player.
+ */
+@Composable
+fun AppFloatingNavBar(
+  navigationItems: List<Screens>,
+  currentRoute: String?,
+  onItemClick: (Screens, Boolean) -> Unit,
+  scrollConnection: FloatingTabBarScrollConnection,
+  modifier: Modifier = Modifier,
+  pureBlack: Boolean = false,
+  showPlayerAccessory: Boolean = false,
+  onAccessoryClick: () -> Unit = {},
+  onMusicRecognitionClick: (() -> Unit)? = null,
+  musicRecognitionContentDescription: String = "",
+  onSearchLongClick: (() -> Unit)? = null,
+  onMusicFlowClick: (() -> Unit)? = null,
+  musicFlowIconRes: Int? = null,
+  musicFlowContentDescription: String = "",
+  onShuffleClick: (() -> Unit)? = null,
+  shuffleEnabled: Boolean = false,
+  shuffleIconRes: Int? = null,
+  shuffleContentDescription: String = "",
+  onAiHubClick: (() -> Unit)? = null,
+  aiHubIconRes: Int? = null,
+  aiHubContentDescription: String = "",
+) {
+
+  val glassConfig = LocalGlassEffectConfig.current
+  val useGlass = glassConfig.isEnabledFor(GlassComponent.NAV_BAR) && isGlassSupported()
+  val useMiniGlass = glassConfig.isEnabledFor(GlassComponent.MINI_PLAYER) && isGlassSupported()
+
+  val backgroundColor =
+    when {
+      useGlass -> Color.Transparent
+      pureBlack -> Color.Black
+      else -> MaterialTheme.colorScheme.surfaceContainerHigh
+    }
+
+  val adaptiveTextColor =
+    if (glassConfig.textColor.isSpecified) {
+      glassConfig.textColor
+    } else if (MaterialTheme.colorScheme.surface.luminance() > 0.5f) {
+      Color.Black
+    } else {
+      Color.White
+    }
+
+  val selectedContentColor =
+    when {
+      useGlass -> adaptiveTextColor
+      pureBlack -> Color.White
+      else -> MaterialTheme.colorScheme.primary
+    }
+
+  val unselectedContentColor =
+    when {
+      useGlass -> adaptiveTextColor.copy(alpha = 0.65f)
+      pureBlack -> Color.White.copy(alpha = 0.65f)
+      else -> MaterialTheme.colorScheme.onSurfaceVariant
+    }
+
+  val tabBarContentModifier =
+    if (useGlass) {
+      Modifier.liquidGlass(
+        config = glassConfig.forKaiOverlay(GlassComponent.NAV_BAR),
+        shape = RoundedCornerShape(percent = 50),
+      )
+    } else {
+      Modifier
+    }
+
+  val selectedTabKey =
+    if (currentRoute == "recognition") "music_recognition"
+    else
+      navigationItems
+        .firstOrNull { screen -> isRouteSelected(currentRoute, screen.route, navigationItems) }
+        ?.route
+
+  val searchScreen = navigationItems.firstOrNull { it == Screens.Search }
+  val tabScreens = remember(navigationItems) { navigationItems.filter { it != Screens.Search } }
+
+  val accessoryContentColor =
+    when {
+      useMiniGlass -> adaptiveTextColor
+      pureBlack -> Color.White
+      else -> MaterialTheme.colorScheme.onSurface
+    }
+  val inlineAccessory:
+    (@Composable
+    SharedTransitionScope.(Modifier, AnimatedVisibilityScope) -> Unit)? =
+    if (showPlayerAccessory) {
+      { accessoryModifier, _ ->
+        FloatingMiniPlayer(
+          isInline = true,
+          contentColor = accessoryContentColor,
+          onClick = onAccessoryClick,
+          modifier =
+            accessoryModifier.kaiMiniPlayerSurface(
+              useGlass = useMiniGlass,
+              config = glassConfig,
+              backgroundColor =
+                if (pureBlack) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh,
+              shape = KaiShapes.pill,
+            ),
+        )
+      }
+    } else {
+      null
+    }
+  val expandedAccessory:
+    (@Composable
+    SharedTransitionScope.(Modifier, AnimatedVisibilityScope) -> Unit)? =
+    if (showPlayerAccessory) {
+      { accessoryModifier, _ ->
+        FloatingMiniPlayer(
+          isInline = false,
+          contentColor = accessoryContentColor,
+          onClick = onAccessoryClick,
+          modifier =
+            accessoryModifier
+              .fillMaxWidth()
+              .kaiMiniPlayerSurface(
+                useGlass = useMiniGlass,
+                config = glassConfig,
+                backgroundColor =
+                  if (pureBlack) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh,
+              ),
+        )
+      }
+    } else {
+      null
+    }
+
+  FloatingTabBar(
+    selectedTabKey = selectedTabKey,
+    scrollConnection = scrollConnection,
+    modifier = modifier,
+    tabBarContentModifier = tabBarContentModifier,
+    inlineAccessory = inlineAccessory,
+    expandedAccessory = expandedAccessory,
+    colors =
+      FloatingTabBarDefaults.colors(
+        backgroundColor = backgroundColor,
+        accessoryBackgroundColor =
+          if (useMiniGlass) Color.Transparent
+          else if (pureBlack) Color.Black else MaterialTheme.colorScheme.surfaceContainerHigh,
+      ),
+    expandedNavigationContent = { navigationModifier, _ ->
+      FloatingNavigationToolbar(
+        items = navigationItems,
+        pureBlack = pureBlack,
+        modifier = navigationModifier,
+        onMusicFlowClick = onMusicFlowClick,
+        musicFlowIconRes = musicFlowIconRes,
+        musicFlowContentDescription = musicFlowContentDescription,
+        onShuffleClick = onShuffleClick,
+        shuffleEnabled = shuffleEnabled,
+        shuffleIconRes = shuffleIconRes,
+        shuffleContentDescription = shuffleContentDescription,
+        onMusicRecognitionClick = onMusicRecognitionClick,
+        musicRecognitionContentDescription = musicRecognitionContentDescription,
+        onAiHubClick = onAiHubClick,
+        aiHubIconRes = aiHubIconRes,
+        aiHubContentDescription = aiHubContentDescription,
+        onSearchLongClick = onSearchLongClick,
+        isSelected = { isRouteSelected(currentRoute, it.route, navigationItems) },
+        onItemClick = onItemClick,
+        currentRoute = currentRoute,
+      )
+    },
+    // The tab content lambdas are captured once per contentKey, so anything they
+    // close over (selection, colors, recognition callback/label) must be part of the
+    // key to avoid stale UI.
+    contentKey =
+      listOf(
+        selectedTabKey,
+        navigationItems,
+        selectedContentColor,
+        unselectedContentColor,
+        onMusicRecognitionClick,
+        musicRecognitionContentDescription,
+      ),
+  ) {
+    tabScreens.forEach { screen ->
+      if (screen == Screens.Library && onMusicRecognitionClick != null) {
+        val recognitionSelected = selectedTabKey == "music_recognition"
+        tab(
+          key = "music_recognition",
+          title = {
+            Text(
+              text = musicRecognitionContentDescription,
+              color = if (recognitionSelected) selectedContentColor else unselectedContentColor,
+              maxLines = 1,
+              overflow = TextOverflow.Ellipsis,
+            )
+          },
+          icon = {
+            Icon(
+              painter = painterResource(echo.music.iad1tya.R.drawable.mic),
+              contentDescription = musicRecognitionContentDescription,
+              tint = if (recognitionSelected) selectedContentColor else unselectedContentColor,
+            )
+          },
+          onClick = onMusicRecognitionClick,
+        )
+      }
+
+      val isSelected = screen.route == selectedTabKey
+      tab(
+        key = screen.route,
+        title = {
+          Text(
+            text = stringResource(screen.titleId),
+            color = if (isSelected) selectedContentColor else unselectedContentColor,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+          )
+        },
+        icon = {
+          Icon(
+            painter =
+              painterResource(if (isSelected) screen.iconIdActive else screen.iconIdInactive),
+            contentDescription = stringResource(screen.titleId),
+            tint = if (isSelected) selectedContentColor else unselectedContentColor,
+          )
+        },
+        onClick = { onItemClick(screen, isSelected) },
+      )
+    }
+
+    searchScreen?.let { screen ->
+      val isSelected = screen.route == selectedTabKey
+      standaloneTab(
+        key = screen.route,
+        icon = {
+          Icon(
+            painter =
+              painterResource(if (isSelected) screen.iconIdActive else screen.iconIdInactive),
+            contentDescription = stringResource(screen.titleId),
+            tint = if (isSelected) selectedContentColor else unselectedContentColor,
+          )
+        },
+        onClick = { onItemClick(screen, isSelected) },
+        onLongClick = onSearchLongClick,
+      )
+    }
+  }
+}

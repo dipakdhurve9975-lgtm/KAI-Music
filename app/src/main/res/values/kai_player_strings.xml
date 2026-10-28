@@ -1,0 +1,5 @@
+<!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. --><resources>
+    <string name="player_mode_vinyl">Vinyl</string>
+    <string name="player_mode_normal">Normal</string>
+    <string name="vinyl_label">KAI</string>
+</resources>

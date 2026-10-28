@@ -1,0 +1,3 @@
+<!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. --><shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:startColor="#521C32" android:endColor="#260E19" android:angle="315" />
+</shape>

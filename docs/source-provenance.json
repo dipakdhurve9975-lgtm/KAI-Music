@@ -1,0 +1,13 @@
+{
+  "original_project": "https://github.com/EchoMusicApp/Echo-Music",
+  "original_snapshot_version": "1.4.4",
+  "original_archive_sha256": "f2300576ac8b0a669b170dbdfa8c79445273a39dbdb062dfa631ea95a869082d",
+  "original_git_commit": null,
+  "reason": "Downloaded archive contains no .git directory; do not fabricate a base commit",
+  "upstream_reference_inspected": "de8a2733b71c40d2fdb2cb721232738f07ab870b",
+  "audit_date": "2026-10-28",
+  "pre_task_modified_existing_files": 214,
+  "historical_public_apk": "1.4.7 (168)",
+  "candidate": "1.4.8 (169)",
+  "historical_source_note": "Use attached KAI source ZIP, not GitHub automatic tag archive, for old documentation-only tags."
+}

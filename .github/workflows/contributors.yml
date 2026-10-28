@@ -1,0 +1,34 @@
+# Modified for KAI Music on 2026-10-28; GPL-3.0.
+# Original contributors remain credited in NOTICE; automation never replaces them.
+name: Refresh KAI download links
+on:
+  release:
+    types: [published, released, prereleased]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: kai-download-links
+  cancel-in-progress: false
+jobs:
+  downloads:
+    if: github.repository == 'dipakdhurve9975-lgtm/KAI-Music'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+      - name: Refresh verified download destinations
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/release_tools.py downloads
+      - name: Commit download section only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- README.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs: refresh verified KAI downloads'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

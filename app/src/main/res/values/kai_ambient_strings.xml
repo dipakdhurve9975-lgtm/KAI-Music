@@ -1,0 +1,11 @@
+<!-- KAI modification notice (2026-10-28): changed from the supplied Echo Music snapshot; see MODIFICATIONS.md. Original notices retained. --><resources>
+    <string name="kai_ambient_presentation">Ambient presentation</string>
+    <string name="kai_ambient_normal">Normal</string>
+    <string name="kai_ambient_vinyl">Vinyl</string>
+    <string name="kai_ambient_saved_style">Remembered when you return to Ambient Mode</string>
+    <string name="kai_ambient_controls">Show playback controls</string>
+    <string name="kai_ambient_exit">Leave Ambient Mode</string>
+    <string name="kai_ambient_settings">Ambient settings</string>
+    <string name="kai_ambient_empty">Choose a song to begin</string>
+    <string name="kai_ambient_art_description">Current album artwork</string>
+</resources>

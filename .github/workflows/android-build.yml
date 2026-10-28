@@ -1,0 +1,41 @@
+# Modified for KAI Music on 2026-10-28; GPL-3.0. Validation never publishes.
+name: KAI Android validation
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install SDK and NDK
+        run: sdkmanager 'platforms;android-37.0' 'build-tools;36.0.0' 'ndk;28.2.13676358'
+      - name: Verify public source and release tooling
+        run: |
+          python3 scripts/release_tools.py scan
+          python3 -m unittest discover -s scripts/tests -v
+      - name: Build and test Universal GMS debug
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleUniversalGmsDebug :app:testUniversalGmsDebugUnitTest :core:testDebugUnitTest :lyrics:testDebugUnitTest :youlyplus:testDebugUnitTest -PkaiPublicBuild=true -PFLOW_NEURO_API_KEY= --max-workers=2 --console=plain
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: KAI-CI-universal-gms-debug-not-for-distribution
+          path: app/build/outputs/apk/universalGms/debug/*.apk
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: KAI-test-reports
+          path: '**/build/test-results/**/TEST-*.xml'
