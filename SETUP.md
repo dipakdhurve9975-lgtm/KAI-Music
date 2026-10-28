@@ -36,3 +36,16 @@ Original setup instructions are preserved for historical reference in docs/upstr
 ## Track upstream without replacing KAI
 
 The local publication checkout keeps origin pointing to KAI and adds a separate upstream fetch remote. In a fresh clone, optionally run `git remote add upstream https://github.com/EchoMusicApp/Echo-Music.git`. Inspect/review upstream changes before merging; do not replace the modified KAI tree or overwrite origin.
+
+## Fresh debug signing setup
+
+If Android Studio has not already created ~/.android/debug.keystore, create your own **development-only** key before assemble. Never overwrite an existing key:
+
+```sh
+mkdir -p "$HOME/.android"
+if [ ! -f "$HOME/.android/debug.keystore" ]; then
+  keytool -genkeypair -keystore "$HOME/.android/debug.keystore" -storepass android -keypass android -alias androiddebugkey -dname 'CN=Android Debug,O=Android,C=US' -keyalg RSA -keysize 2048 -validity 10000
+fi
+```
+
+On Windows, use Android Studio's debug keystore or the equivalent keytool command with `%USERPROFILE%/.android/debug.keystore`, only if that file is absent. Your key will differ from the published preview and cannot update it. Release automation requires the existing approved maintainer key; it never creates a replacement.

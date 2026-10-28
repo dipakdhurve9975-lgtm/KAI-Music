@@ -34,6 +34,12 @@ jobs:
         run: |
           python3 scripts/release_tools.py scan
           python3 -m unittest discover -s scripts/tests -v
+      - name: Create disposable CI debug key (never a published signing identity)
+        run: |
+          mkdir -p "$HOME/.android"
+          if [[ ! -f "$HOME/.android/debug.keystore" ]]; then
+            keytool -genkeypair -keystore "$HOME/.android/debug.keystore" -storepass android -keypass android -alias androiddebugkey -dname 'CN=KAI CI,O=Disposable validation,C=US' -keyalg RSA -keysize 2048 -validity 2
+          fi
       - name: Build and test Universal GMS debug
         run: |
           chmod +x gradlew
