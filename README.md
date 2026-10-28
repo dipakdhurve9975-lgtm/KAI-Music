@@ -7,11 +7,11 @@ An independent open-source music experience, built upon the foundation of Echo M
 <!-- kai-downloads:start -->
 **No stable KAI release is available yet.** The current download is a debug-signed preview, not a stable build.
 
-[![Download KAI preview APK](assets/download.svg)](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.8/KAI-universal-gms-preview.apk)
+[![Download KAI preview APK](assets/download.svg)](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.9/KAI-universal-gms-preview.apk)
 
-Current preview: **1.4.8**, Universal GMS, Android 8.0+.
+Current preview: **1.4.9**, Universal GMS, Android 8.0+.
 
-[Matching preview source ZIP](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.8/KAI-Music-source-1.4.8.zip)
+[Matching preview source ZIP](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.9/KAI-Music-source-1.4.9.zip)
 
 [View All Releases](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases) · [Source Code](https://github.com/dipakdhurve9975-lgtm/KAI-Music)
 
