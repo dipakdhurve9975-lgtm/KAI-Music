@@ -48,7 +48,7 @@ ffmpegKit = "6.0-2"
 youtubedlAndroid = "0.18.1"
 playServicesLocation = "21.4.0"
 coroutinesTest = "1.10.2"
-robolectric = "4.14.1"
+robolectric = "4.17"
 
 [libraries]
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
