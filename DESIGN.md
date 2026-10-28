@@ -195,3 +195,8 @@ The existing developer link group places a second Instagram row immediately belo
 ### KAI update controls (29 October 2026)
 
 Reuse Update Settings and its existing top bar: installed version, one primary check action, clear status, saved preview switch and quiet release links. One optional dialog contains actual notes, finite scrolling, download size/progress/cancel/retry and explicit Android installation. No startup-blocking screen, duplicate prompts, glass cards or silent downloads. The spiral appears only during actual checking/verification.
+
+
+### About Instagram ordering (1.4.10)
+
+About reuses the existing Instagram row: owner, attributed Echo creator, friend. The creator subtitle identifies the original role. Keep a single creator Instagram action, preserve all other credits and links, and do not add it to Welcome or README. No new panel or screen.

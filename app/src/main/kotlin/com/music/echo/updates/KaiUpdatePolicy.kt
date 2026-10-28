@@ -149,6 +149,19 @@ internal fun validateDownloadedIdentity(
   }
 }
 
+/** Published debug APKs are previews; keep explicit saved choices, including opt-outs. */
+internal fun includePreviewUpdates(previewBuild: Boolean, saved: Boolean?): Boolean =
+  saved ?: previewBuild
+
+internal fun shouldCheckUpdateForChannel(
+  manual: Boolean,
+  preview: Boolean,
+  lastPreview: Boolean?,
+  now: Long,
+  lastAttempt: Long,
+  lastSuccess: Long,
+): Boolean = manual || lastPreview != preview || shouldCheckUpdate(now, lastAttempt, lastSuccess)
+
 internal fun shouldCheckUpdate(now: Long, lastAttempt: Long, lastSuccess: Long): Boolean =
   (lastAttempt == 0L || now < lastAttempt || now - lastAttempt >= 30 * 60 * 1000L) &&
-    (lastSuccess == 0L || now < lastSuccess || now - lastSuccess >= 6 * 60 * 60 * 1000L)
+    (lastSuccess == 0L || now < lastSuccess || now - lastSuccess >= 60 * 60 * 1000L)

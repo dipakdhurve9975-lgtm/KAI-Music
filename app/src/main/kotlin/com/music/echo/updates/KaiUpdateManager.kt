@@ -10,6 +10,7 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import echo.music.iad1tya.BuildConfig
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -71,14 +72,17 @@ constructor(@ApplicationContext private val context: Context) {
   private var downloadJob: Job? = null
   private var installJob: Job? = null
   private var readyFile: File? = null
-  private val mutableState = MutableStateFlow(KaiUpdateState())
+  private val mutableState =
+    MutableStateFlow(
+      KaiUpdateState(includePreview = includePreviewUpdates(BuildConfig.DEBUG, null))
+    )
   val state = mutableState.asStateFlow()
 
   init {
     scope.launch {
       mutableState.update {
         it.copy(
-          includePreview = preferences.getBoolean("include_preview", false),
+          includePreview = previewPreference(),
           lastSuccess = preferences.getLong("last_success", 0L),
         )
       }
@@ -92,19 +96,35 @@ constructor(@ApplicationContext private val context: Context) {
         if (state.value.transfer in setOf(UpdateTransfer.DOWNLOADING, UpdateTransfer.VERIFYING))
           return@launch
         val now = System.currentTimeMillis()
-        val preview = preferences.getBoolean("include_preview", false)
+        val preview = previewPreference()
+        val previousChannel =
+          if (preferences.contains("last_checked_preview"))
+            preferences.getBoolean("last_checked_preview", false)
+          else null
         if (
-          !manual &&
-            !shouldCheckUpdate(
-              now,
-              preferences.getLong("last_attempt", 0L),
-              preferences.getLong("last_success", 0L),
-            )
+          !shouldCheckUpdateForChannel(
+            manual,
+            preview,
+            previousChannel,
+            now,
+            preferences.getLong("last_attempt", 0L),
+            preferences.getLong("last_success", 0L),
+          )
         )
           return@launch
-        preferences.edit().putLong("last_attempt", now).apply()
+        preferences
+          .edit()
+          .putLong("last_attempt", now)
+          .putBoolean("last_checked_preview", preview)
+          .apply { if (previousChannel != preview) remove("last_success") }
+          .apply()
         mutableState.update {
-          it.copy(check = UpdateCheck.CHECKING, failure = null, includePreview = preview)
+          it.copy(
+            check = UpdateCheck.CHECKING,
+            failure = null,
+            includePreview = preview,
+            lastSuccess = if (previousChannel == preview) it.lastSuccess else 0L,
+          )
         }
         val offer = repository.source.findUpdate(verifier.installed(), preview)
         val dismissed =
@@ -135,6 +155,13 @@ constructor(@ApplicationContext private val context: Context) {
       }
     }
   }
+
+  private fun previewPreference(): Boolean =
+    includePreviewUpdates(
+      BuildConfig.DEBUG,
+      if (preferences.contains("include_preview")) preferences.getBoolean("include_preview", false)
+      else null,
+    )
 
   fun setPreview(enabled: Boolean) {
     scope.launch {

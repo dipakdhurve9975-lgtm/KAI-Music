@@ -83,7 +83,7 @@ fun AboutScreen(
       item(key = "origins") { KaiOrigins() }
       item(key = "original_creator") { KaiOriginalCreator() }
       item(key = "independent_development") { KaiIndependentDevelopment() }
-      item(key = "links") { KaiCommunityLinks() }
+      item(key = "links") { KaiCommunityLinks(includeOriginalCreatorInstagram = true) }
       item(key = "legal") { KaiSourceLicense() }
     }
   }

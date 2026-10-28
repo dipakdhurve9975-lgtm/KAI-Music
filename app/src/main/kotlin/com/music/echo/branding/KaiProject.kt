@@ -9,6 +9,7 @@ object KaiProject {
   const val ORIGINAL_SOURCE = "https://github.com/EchoMusicApp/Echo-Music"
   const val ORIGINAL_CREATOR = "https://github.com/iad1tya"
   // Verified from the creator's GitHub profile and original About source, 2026-10-28.
-  const val ORIGINAL_INSTAGRAM = "https://www.instagram.com/iad1tya/"
+  const val ORIGINAL_INSTAGRAM_USERNAME = "iad1tya"
+  const val ORIGINAL_INSTAGRAM = "https://www.instagram.com/$ORIGINAL_INSTAGRAM_USERNAME/"
   const val ORIGINAL_CONTRIBUTORS = "$ORIGINAL_SOURCE/graphs/contributors"
 }

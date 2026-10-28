@@ -1,5 +1,6 @@
 {
   "features": [
+    "KAI 1.4.10 (171): preview updates enabled by default for preview installs, saved choices respected, hourly successful checks/channel cache invalidation, and original creator Instagram directly below owner in About",
     "KAI 1.4.9 (170) candidate: KAI-only update checking, stable default/preview opt-in, verified explicit APK downloads, Android installation handoff and APK-derived release metadata; original package/signing/data identities preserved",
     "KAI 1.4.8 (169) local candidate: original Echo Music creator/contributor credits, separate independent KAI development, offline GPL/notices, verified creator Instagram and explicit manual KAI release link",
     "KAI 1.4.7 (168): discoverable Lyrics style & font controls with five saved typefaces, bilingual preview and restrained glow shared by all five lyric presentations",

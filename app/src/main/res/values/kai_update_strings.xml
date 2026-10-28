@@ -2,14 +2,14 @@
 <!-- Modified for KAI Music, 2026-10-29. GPL-3.0. -->
 <resources>
     <string name="kai_updates_current">KAI v%1$s installed</string>
-    <string name="kai_updates_identity">Updates come only from KAI’s GitHub releases. Stable updates are checked by default.</string>
+    <string name="kai_updates_identity">KAI checks its own GitHub releases when you open the app. Compatible updates are optional.</string>
     <string name="kai_updates_check">Check for updates</string>
     <string name="kai_updates_checking">Checking KAI releases…</string>
     <string name="kai_updates_current_result">No newer compatible KAI update is available on your selected channel.</string>
     <string name="kai_updates_available">KAI v%1$s is available</string>
     <string name="kai_updates_last_check">Last checked: %1$s</string>
     <string name="kai_updates_preview">Include preview releases</string>
-    <string name="kai_updates_preview_description">Optional development builds. Updates must match this app’s package and signing identity.</string>
+    <string name="kai_updates_preview_description">Enabled by default in preview builds. Turn off for stable updates only. Updates must match this app’s package and signing identity.</string>
     <string name="kai_updates_preview_warning">Preview release · may contain unfinished features</string>
     <string name="kai_updates_install_explanation">Android asks you to approve installation. If needed, allow KAI to install apps in Android Settings, then return and tap Install update. Compatible updates keep your library and preferences.</string>
     <string name="kai_updates_notes">Release notes</string>

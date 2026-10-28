@@ -78,11 +78,17 @@ fun KaiBrandHeader(modifier: Modifier = Modifier, tagline: String? = null) {
 fun KaiCommunityLinks(
   modifier: Modifier = Modifier,
   configuration: KaiLinkConfiguration = KaiLinks.configuration,
+  includeOriginalCreatorInstagram: Boolean = false,
 ) {
   Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(KaiSpacing.lg)) {
     KaiLinkGroup(
       R.string.kai_about_developer,
-      listOf(KaiLink.WEBSITE, KaiLink.INSTAGRAM, KaiLink.INSTAGRAM_FRIEND),
+      buildList {
+        add(KaiLink.WEBSITE)
+        add(KaiLink.INSTAGRAM)
+        if (includeOriginalCreatorInstagram) add(KaiLink.INSTAGRAM_ORIGINAL_CREATOR)
+        add(KaiLink.INSTAGRAM_FRIEND)
+      },
       configuration,
     )
     KaiLinkGroup(R.string.kai_about_support, listOf(KaiLink.COFFEE, KaiLink.UPI), configuration)
@@ -191,7 +197,12 @@ private fun KaiLinkRow(link: KaiLink, configuration: KaiLinkConfiguration) {
         color = MaterialTheme.colorScheme.onSurface,
       )
       Text(
-        configuration.displayValue(link) ?: stringResource(R.string.kai_link_coming_soon),
+        if (link == KaiLink.INSTAGRAM_ORIGINAL_CREATOR && configured)
+          stringResource(
+            R.string.kai_original_creator_instagram_subtitle,
+            configuration.displayValue(link).orEmpty(),
+          )
+        else configuration.displayValue(link) ?: stringResource(R.string.kai_link_coming_soon),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         maxLines = 2,
@@ -214,7 +225,8 @@ private val KaiLink.title: Int
     when (this) {
       KaiLink.WEBSITE -> R.string.kai_link_website
       KaiLink.INSTAGRAM,
-      KaiLink.INSTAGRAM_FRIEND -> R.string.kai_link_instagram
+      KaiLink.INSTAGRAM_FRIEND,
+      KaiLink.INSTAGRAM_ORIGINAL_CREATOR -> R.string.kai_link_instagram
       KaiLink.GITHUB -> R.string.kai_link_github
       KaiLink.DISCORD -> R.string.kai_link_discord
       KaiLink.COFFEE -> R.string.kai_link_coffee
@@ -228,7 +240,8 @@ private val KaiLink.icon: Int
     when (this) {
       KaiLink.WEBSITE -> R.drawable.website
       KaiLink.INSTAGRAM,
-      KaiLink.INSTAGRAM_FRIEND -> R.drawable.ic_instagram_new
+      KaiLink.INSTAGRAM_FRIEND,
+      KaiLink.INSTAGRAM_ORIGINAL_CREATOR -> R.drawable.ic_instagram_new
       KaiLink.GITHUB -> R.drawable.github
       KaiLink.DISCORD -> R.drawable.ic_discord_new
       KaiLink.COFFEE -> R.drawable.coffee

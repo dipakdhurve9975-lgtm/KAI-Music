@@ -24,6 +24,8 @@ object KaiLinks {
       instagramUrl = INSTAGRAM_URL,
       friendInstagramUsername = FRIEND_INSTAGRAM_USERNAME,
       friendInstagramUrl = FRIEND_INSTAGRAM_URL,
+      originalCreatorInstagramUsername = KaiProject.ORIGINAL_INSTAGRAM_USERNAME,
+      originalCreatorInstagramUrl = KaiProject.ORIGINAL_INSTAGRAM,
       githubUrl = GITHUB_URL,
       discordUrl = DISCORD_URL,
       coffeeUrl = BUY_ME_A_COFFEE_URL,
@@ -43,6 +45,7 @@ enum class KaiLink {
   UPI,
   TELEGRAM,
   INSTAGRAM_FRIEND,
+  INSTAGRAM_ORIGINAL_CREATOR,
 }
 
 /** Pure configuration/validation shared by every public account link and its unit tests. */
@@ -57,6 +60,8 @@ data class KaiLinkConfiguration(
   val telegramUrl: String? = null,
   val friendInstagramUsername: String? = null,
   val friendInstagramUrl: String? = null,
+  val originalCreatorInstagramUsername: String? = null,
+  val originalCreatorInstagramUrl: String? = null,
 ) {
   fun defaultPresenceDestination(): String? =
     destination(KaiLink.WEBSITE) ?: destination(KaiLink.GITHUB)
@@ -66,6 +71,7 @@ data class KaiLinkConfiguration(
       KaiLink.WEBSITE -> secureWebLink(websiteUrl)
       KaiLink.INSTAGRAM -> secureWebLink(instagramUrl)
       KaiLink.INSTAGRAM_FRIEND -> secureWebLink(friendInstagramUrl)
+      KaiLink.INSTAGRAM_ORIGINAL_CREATOR -> secureWebLink(originalCreatorInstagramUrl)
       KaiLink.GITHUB -> secureWebLink(githubUrl)
       KaiLink.DISCORD -> secureWebLink(discordUrl)
       KaiLink.COFFEE -> secureWebLink(coffeeUrl)
@@ -82,8 +88,16 @@ data class KaiLinkConfiguration(
   fun displayValue(link: KaiLink): String? {
     val destination = destination(link) ?: return null
     if (link == KaiLink.UPI) return upiId?.trim()
-    if (link == KaiLink.INSTAGRAM || link == KaiLink.INSTAGRAM_FRIEND) {
-      (if (link == KaiLink.INSTAGRAM) instagramUsername else friendInstagramUsername)
+    if (
+      link == KaiLink.INSTAGRAM ||
+        link == KaiLink.INSTAGRAM_FRIEND ||
+        link == KaiLink.INSTAGRAM_ORIGINAL_CREATOR
+    ) {
+      (when (link) {
+          KaiLink.INSTAGRAM -> instagramUsername
+          KaiLink.INSTAGRAM_FRIEND -> friendInstagramUsername
+          else -> originalCreatorInstagramUsername
+        })
         ?.trim()
         ?.takeIf { it.isNotBlank() }
         ?.let {

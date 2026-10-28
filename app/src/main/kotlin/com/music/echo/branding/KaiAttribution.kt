@@ -46,7 +46,6 @@ fun KaiOriginalCreator() {
     FlowRow(horizontalArrangement = Arrangement.spacedBy(KaiSpacing.xs)) {
       ProjectLink(stringResource(R.string.kai_original_github), KaiProject.ORIGINAL_CREATOR)
       ProjectLink(stringResource(R.string.kai_original_repository), KaiProject.ORIGINAL_SOURCE)
-      ProjectLink(stringResource(R.string.kai_link_instagram), KaiProject.ORIGINAL_INSTAGRAM)
       ProjectLink(stringResource(R.string.kai_view_contributors), KaiProject.ORIGINAL_CONTRIBUTORS)
     }
   }

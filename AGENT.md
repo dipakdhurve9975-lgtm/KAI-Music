@@ -1,5 +1,9 @@
 # AGENT.md - KAI
 
+## 1.4.10 update audience / About follow-up (29 October 2026)
+
+Local candidate 1.4.10/code171 preserves the 1.4.9 lyric fix, installed identities and existing UI. Published debug previews default to preview updates when no explicit preference exists; production defaults stable-only. Never overwrite saved opt-outs or per-version dismissals. Successful checks refresh hourly, failures back off 30m, and last_checked_preview invalidates cache across the new policy/channel. Old 1.4.9 binaries still need Include preview releases enabled once; <=1.4.8 needs a manual upgrade. Never claim anonymous link downloaders can be remotely contacted or upgraded retroactively. About alone includes the attributed original creator Instagram directly after the owner and before the friend. Remove its duplicate credit-panel action; original GitHub/source/credits remain. Welcome and README do not get the new creator Instagram row. Candidate requires normal checks and publication review.
+
 ## 1.4.9 published (29 October 2026)
 
 The owner approved kai-preview-1.4.9; exact source/tag commit 4ad38803774dde7f325ce6335759c00fa5e74ce8, code170, existing debug package/signer. APK SHA-256 f420f5084912a688d04ee8645a05f342e9602b4eee651122994597e41fcc7ffd. All eight assets verified, anonymous APK/source/metadata links returned 200, and README automation 40780476556 updated its top download to 1.4.9. Instagram stays in About only. Final APK is installed; English/Devanagari lyric progression, scrolling, pause/seek/resume, mode/track changes and foreground return were observed. All 137 previous song IDs and the favourite remained. 230 Android + 15 release-tool tests passed; no full legacy lint or stable certification is claimed.

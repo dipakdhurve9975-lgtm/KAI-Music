@@ -44,7 +44,7 @@ Existing KAI vinyl-player capture (not a mockup; predates the About changes):
 2. Open the APK on Android 8.0 or newer. Allow installation from your chosen browser/file manager when Android asks.
 3. Install over a compatible KAI preview to preserve data. Preview updates require the same application ID and signing certificate. Do not uninstall to fix a signature mismatch without backing up your data.
 
-The current public APK is a **debug-signed preview**, package `echo.music.iad1tya.debug`. A future production build uses the existing release package configuration and is a separate installation identity; it must not silently replace the preview. KAI 1.4.9 adds optional checks of KAI releases only, with stable as the default and previews requiring opt-in. Downloads and Android installation require user action. Older 1.4.8 installations need one manual compatible update to receive this updater. No silent installation is used.
+The current public APK is a **debug-signed preview**, package `echo.music.iad1tya.debug`. A future production build uses the existing release package configuration and is a separate installation identity; it must not silently replace the preview. KAI checks its own releases only. Starting with 1.4.10, preview builds check compatible preview updates by default; production defaults to stable updates, and saved opt-outs are preserved. Downloads and Android installation require user action. Versions 1.4.8 and older need one manual compatible update to receive the updater. Existing 1.4.9 users can enable **Include preview releases** in Update Settings once to receive newer previews. No silent installation is used.
 
 ## Build From Source
 

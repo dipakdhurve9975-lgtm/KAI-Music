@@ -7,29 +7,68 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class KaiLinkConfigurationTest {
-  @Test fun presenceBrandFallbackOnlyUsesConfiguredDestinations() {
+  @Test
+  fun originalCreatorInstagramDoesNotReplaceOwnerOrFriendProfiles() {
+    val configuration = KaiLinks.configuration
+    assertEquals("@dipak.s.dhurve", configuration.displayValue(KaiLink.INSTAGRAM))
+    assertEquals("@____rohittt.____09", configuration.displayValue(KaiLink.INSTAGRAM_FRIEND))
+    assertEquals("@iad1tya", configuration.displayValue(KaiLink.INSTAGRAM_ORIGINAL_CREATOR))
+    assertEquals(
+      KaiProject.ORIGINAL_INSTAGRAM,
+      configuration.destination(KaiLink.INSTAGRAM_ORIGINAL_CREATOR),
+    )
+    assertNull(
+      KaiLinkConfiguration(instagramUrl = KaiLinks.INSTAGRAM_URL)
+        .destination(KaiLink.INSTAGRAM_ORIGINAL_CREATOR)
+    )
+  }
+
+  @Test
+  fun presenceBrandFallbackOnlyUsesConfiguredDestinations() {
     assertNull(KaiLinkConfiguration().defaultPresenceDestination())
     val github = "https://source.example.org/kai"
     val website = "https://music.example.org/kai"
     assertEquals(github, KaiLinkConfiguration(githubUrl = github).defaultPresenceDestination())
-    assertEquals(website, KaiLinkConfiguration(websiteUrl = website, githubUrl = github).defaultPresenceDestination())
-    assertEquals(github, KaiLinkConfiguration(websiteUrl = "not-configured", githubUrl = github).defaultPresenceDestination())
+    assertEquals(
+      website,
+      KaiLinkConfiguration(websiteUrl = website, githubUrl = github).defaultPresenceDestination(),
+    )
+    assertEquals(
+      github,
+      KaiLinkConfiguration(websiteUrl = "not-configured", githubUrl = github)
+        .defaultPresenceDestination(),
+    )
   }
 
-  @Test fun presenceLinksPreserveValidSavedUserDestinations() {
+  @Test
+  fun presenceLinksPreserveValidSavedUserDestinations() {
     val https = "https://music.example.org/my-page?view=1"
     val http = "http://music.example.org/my-page"
     assertEquals(https, normalizedPresenceUrl(https))
     assertEquals(http, normalizedPresenceUrl(http))
-    assertEquals("https://music.example.org/my-page", normalizedPresenceUrl("music.example.org/my-page"))
+    assertEquals(
+      "https://music.example.org/my-page",
+      normalizedPresenceUrl("music.example.org/my-page"),
+    )
   }
 
-  @Test fun invalidPresenceLinksAreOmittedInsteadOfSentOrTruncated() {
-    listOf(null, "", " ", "not-a-url", "javascript:alert(1)", "file:///tmp/page", "https://",
-      "https://user:password@music.example.org", "https://music.example.org/with space",
-      "https://music.example.org/" + "a".repeat(256)).forEach { value ->
-      assertNull(value, normalizedPresenceUrl(value))
-    }
+  @Test
+  fun invalidPresenceLinksAreOmittedInsteadOfSentOrTruncated() {
+    listOf(
+        null,
+        "",
+        " ",
+        "not-a-url",
+        "javascript:alert(1)",
+        "file:///tmp/page",
+        "https://",
+        "https://user:password@music.example.org",
+        "https://music.example.org/with space",
+        "https://music.example.org/" + "a".repeat(256),
+      )
+      .forEach { value ->
+        assertNull(value, normalizedPresenceUrl(value))
+      }
   }
 
   @Test

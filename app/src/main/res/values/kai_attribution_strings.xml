@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Modified for KAI Music on 2026-10-28; see MODIFICATIONS.md. -->
 <resources>
+    <string name="kai_original_creator_instagram_subtitle">%1$s · Echo Music creator</string>
     <string name="kai_independent_tagline">An independent open-source music experience.</string>
     <string name="kai_origins_heading">Our origins</string>
     <string name="kai_origins_title">Built Upon Echo Music</string>

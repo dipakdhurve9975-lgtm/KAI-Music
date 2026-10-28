@@ -243,3 +243,8 @@ About attribution and license viewer; manual KAI releases link; GPL/Apache/OFL m
 ## 29 October 2026 — focused lyrics candidate 1.4.9
 
 Correct retained lyric-sampler visibility after asynchronous loading and test the callback through actual Compose recomposition. Preserve original Echo Music playback timestamp/index/scrolling behavior, KAI typography, providers, package/data/signing identities. Move the verified preview download to the top of README (published separately). The owner clarified that the other attached-prompt objectives remain requested; the KAI-only updater is combined after the isolated lyric regression check. The updater introduces metadata validation, bounded streaming downloads, installed-signer/APK verification, optional release dialogs and Android installation handoff; no music/data identity changes.
+
+
+## 29 October 2026 — 1.4.10 follow-up
+
+Enable compatible preview updates by default for preview builds while preserving explicit choices, reduce successful-check cache to one hour, and invalidate checks across channel changes. Move the attributed original creator Instagram below the owner in About, preserving other links and the existing lyric repair. Package/signing/data identities remain compatible.
