@@ -16,7 +16,7 @@ Universal GMS debug 1.4.8 (169), JDK 21. Public command:
 ./gradlew :app:assembleUniversalGmsDebug :app:compileUniversalGmsDebugKotlin :app:testUniversalGmsDebugUnitTest :core:testDebugUnitTest :lyrics:testDebugUnitTest :youlyplus:testDebugUnitTest -PkaiPublicBuild=true -PFLOW_NEURO_API_KEY= --max-workers=2 --console=plain
 ```
 
-Final public build: **BUILD SUCCESSFUL in 2m 2s**. Android tests: **206 passed, 0 failures/errors** (app 165, core 17, lyrics 17, YouLyPlus 7). Release-tool tests: **13 passed**. Six workflow files passed actionlint 1.7.12. No new app dependency was added. Full Android lint was not rerun; existing compiler/resource warnings remain. Restored upstream source contains inherited whitespace warnings, recorded locally rather than mass-reformatted.
+Final public build: **BUILD SUCCESSFUL in 2m 2s**. Android tests: **206 passed, 0 failures/errors** (app 165, core 17, lyrics 17, YouLyPlus 7). Release-tool tests: **14 passed**. Six workflow files passed actionlint 1.7.12. No new app dependency was added. Full Android lint was not rerun; existing compiler/resource warnings remain. Restored upstream source contains inherited whitespace warnings, recorded locally rather than mass-reformatted.
 
 APK verified with apksigner and aapt: Android 8.0+, all four ABIs, package echo.music.iad1tya.debug, same certificate as 1.4.7, versionCode 169. Public private-credential fields are empty and private Firebase project resources are absent. APK SHA-256: `46f274a357dd2f81d4b2812e37e9753a20f915cfad119f95e955326f034f35ca`. Size: 138011743 bytes.
 

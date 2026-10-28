@@ -139,7 +139,8 @@ def scan(root, names):
         "private-key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
         "github-token": re.compile(r"\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,})\b"),
         "aws-access-key": re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
-        "literal-service-credential": re.compile(r'''(?i)(?:api[_-]?key|client[_-]?secret|lastfmsecret|lastfmkey|password|access[_-]?token)\s*(?:=|:)\s*["'][A-Za-z0-9_+/=-]{16,}["']'''),
+        "literal-service-credential": re.compile(r'''(?i)(?:api[_-]?key|client[_-]?secret|lastfmsecret|lastfmkey|password|access[_-]?token)["']?\s*(?:=|:)\s*["'][A-Za-z0-9_+/=-]{16,}["']'''),
+        "bare-property-credential": re.compile(r"(?i)^\s*[A-Z0-9_]*(?:API_KEY|SECRET|TOKEN|PASSWORD)\s*=\s*([^\s#]{16,})\s*$"),
         "credential-in-url": re.compile(r"https?://[^\s/]+:[^\s/@]+@"),
     }
     for name in names:
@@ -155,7 +156,11 @@ def scan(root, names):
             continue
         for i, line in enumerate(text.splitlines(), 1):
             for kind, pattern in patterns.items():
+                if kind == "bare-property-credential" and Path(name).suffix != ".properties":
+                    continue  # Code expressions are not literal .properties values.
                 match = pattern.search(line)
+                if kind == "bare-property-credential" and match and match[1].lower().startswith(("your_", "${", "<")):
+                    continue
                 approved = match and any(
                     item.get("file") == name and item.get("kind") == kind
                     and item.get("match_sha256") == hashlib.sha256(match[0].encode()).hexdigest()

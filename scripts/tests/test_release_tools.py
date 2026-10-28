@@ -82,6 +82,14 @@ class ArtifactPolicyTest(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     rt.validate_tag(d, tag, "preview")
 
+    def test_json_and_unquoted_property_secrets_are_rejected(self):
+        with tempfile.TemporaryDirectory() as d:
+            import json
+            (Path(d) / "config.json").write_text(json.dumps({"api_key": "Z" * 32}))
+            (Path(d) / "gradle.properties").write_text("ACCESS_TOKEN=" + "Q" * 32)
+            result = rt.scan(d, ["config.json", "gradle.properties"])
+            self.assertEqual({"literal-service-credential", "bare-property-credential"}, {r["kind"] for r in result})
+
     def test_apk_parser_and_channel_validation(self):
         data = pr.apk_metadata("package: name='echo.music.iad1tya.debug' versionCode='169' versionName='1.4.8'\nsdkVersion:'26'\napplication-debuggable\nnative-code: 'arm64-v8a' 'armeabi-v7a' 'x86' 'x86_64'")
         pr.validate_apk(data, "1.4.8", 169, "preview")
