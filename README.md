@@ -81,7 +81,7 @@ Original repository: [EchoMusicApp/Echo-Music](https://github.com/EchoMusicApp/E
 
 ## Original Creator
 
-[Aditya (@iad1tya)](https://github.com/iad1tya) — original Echo Music creator. His [Instagram](https://www.instagram.com/iad1tya/) is linked from his own GitHub profile and the original About source. Ownership was checked on 28 October 2026; direct Instagram fetching was throttled. [Verification evidence](docs/PROJECT_AUDIT.md).
+[Aditya (@iad1tya)](https://github.com/iad1tya) — original Echo Music creator. [Original project](https://github.com/EchoMusicApp/Echo-Music) · [Verification evidence](docs/PROJECT_AUDIT.md).
 
 ## Contributors
 
