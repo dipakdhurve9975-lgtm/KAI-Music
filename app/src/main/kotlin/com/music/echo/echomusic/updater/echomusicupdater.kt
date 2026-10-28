@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.edit
 import androidx.navigation.NavHostController
 import androidx.work.WorkManager
@@ -28,21 +29,18 @@ fun UpdateScreen(navController: NavHostController) {
 }
 
 /**
- * KAI updates are unavailable until an owner-controlled update flow is implemented. Retire only
- * inherited update state/work; music, downloads and playback notifications survive. Run outside the
- * main thread, including the first SharedPreferences disk read.
+ * Retire inherited update state/work separately from the KAI-only updater. Music, downloads and
+ * playback notifications survive. Initialize only absent transport defaults once; later upgrades
+ * preserve explicit choices. Run outside the main thread, including the first preferences read.
  */
 suspend fun initializeKaiUpdatePlaceholder(context: Context) =
   withContext(Dispatchers.IO) {
     UpdateNotificationHelper.clearLegacyUpdateNotifications(context)
     val preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
-    val previousVersion = preferences.getString("last_seen_changelog_version", "")
-    if (previousVersion != BuildConfig.VERSION_NAME) {
-      // Preserve the transport migration without depending on a remote changelog dialog.
-      context.dataStore.edit {
-        it[ForceOpusKey] = true
-        it[EnableCronetKey] = true
-      }
+    if (!preferences.getBoolean("kai_transport_defaults_migrated", false)) {
+      // A version update must not overwrite explicit user choices from an older KAI build.
+      context.dataStore.edit { addMissingKaiTransportDefaults(it) }
+      preferences.edit().putBoolean("kai_transport_defaults_migrated", true).apply()
     }
     preferences
       .edit()
@@ -63,3 +61,8 @@ suspend fun initializeKaiUpdatePlaceholder(context: Context) =
       Timber.w(error, "Could not cancel retired app-update work")
     }
   }
+
+internal fun addMissingKaiTransportDefaults(preferences: MutablePreferences) {
+  if (preferences[ForceOpusKey] == null) preferences[ForceOpusKey] = true
+  if (preferences[EnableCronetKey] == null) preferences[EnableCronetKey] = true
+}

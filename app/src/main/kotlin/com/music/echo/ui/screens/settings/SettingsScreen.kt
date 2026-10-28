@@ -84,7 +84,7 @@ fun SettingsScreen(
   val privacyDesc = stringResource(R.string.setting_desc_privacy)
   val storageDesc = stringResource(R.string.setting_desc_storage)
   val backupDesc = stringResource(R.string.setting_desc_backup)
-  val systemUpdateDesc = stringResource(R.string.kai_manual_updates)
+    val systemUpdateDesc = stringResource(R.string.kai_updates_check)
   val aboutDesc = stringResource(R.string.setting_desc_about)
 
   val scrollState = rememberScrollState()

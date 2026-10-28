@@ -1,5 +1,6 @@
 {
   "features": [
+    "KAI 1.4.9 (170) candidate: KAI-only update checking, stable default/preview opt-in, verified explicit APK downloads, Android installation handoff and APK-derived release metadata; original package/signing/data identities preserved",
     "KAI 1.4.8 (169) local candidate: original Echo Music creator/contributor credits, separate independent KAI development, offline GPL/notices, verified creator Instagram and explicit manual KAI release link",
     "KAI 1.4.7 (168): discoverable Lyrics style & font controls with five saved typefaces, bilingual preview and restrained glow shared by all five lyric presentations",
     "About: add a second Instagram profile directly below the owner profile, using the account decoded from the supplied QR; publish KAI 1.4.5 preview (166)",
@@ -23,6 +24,7 @@
     "Android Auto: optional autoplay of the restored queue on automotive connect (Settings â†’ Player, default off) and Home browse node with YouTube Home sections, suggested and recent content alongside local library"
   ],
   "bug_fixes": [
+    "KAI 1.4.9 (170) candidate: correct retained lyrics sampler visibility after asynchronous loading; preserve current audio position, genuine timestamp highlighting and line-change auto-scroll. Move download to top of README.",
     "Release review: preserve complete modified source and notices, replace inherited restricted font with official OFL edition, remove inherited Last.fm credentials and prepare signature-checked draft release/source/checksum workflow with honest stable/preview download selection",
     "Lyrics: replace the frozen independent playing latch/animation-frame clock with shared session state and live position samples, preserving paused seeks and receiver timing",
     "Lyrics Refetch: bypass stale in-memory results, fetch outside the Room query executor and retain saved text on network failures or concurrent edits",

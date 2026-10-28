@@ -43,6 +43,24 @@ def verify_fingerprint(output, expected):
     return normalized
 
 
+def update_manifest(metadata, apk_name):
+    """Public updater data comes from the inspected APK, never from a tag guess."""
+    return {
+        "schema_version": 1,
+        "application_id": metadata["application_id"],
+        "version_code": metadata["version_code"],
+        "version_name": metadata["version_name"],
+        "channel": metadata["channel"],
+        "variant": metadata["variant"],
+        "min_sdk": metadata["min_sdk"],
+        "abis": metadata["abis"],
+        "apk_file_name": apk_name,
+        "apk_sha256": metadata["apk_sha256"],
+        "signer_sha256": metadata["signer_sha256"],
+        "source_commit": metadata["source_commit"],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
@@ -59,7 +77,7 @@ def main():
     validate_apk(metadata, name, code, args.channel)
     signature = subprocess.check_output([str(signer), "verify", "--print-certs", str(args.apk)], text=True)
     metadata["signer_sha256"] = verify_fingerprint(signature, os.environ.get("KAI_EXPECTED_SIGNER_SHA256", ""))
-    if code <= int(os.environ.get("KAI_PREVIOUS_VERSION_CODE", "168")):
+    if code <= int(os.environ.get("KAI_PREVIOUS_VERSION_CODE", "169")):
         raise ValueError("versionCode must exceed the last approved build")
     notes = args.root / "docs/release-notes" / f"{name}.md"
     if not notes.is_file():
@@ -82,6 +100,8 @@ def main():
                      "source_tag": args.tag, "channel": args.channel, "variant": "universalGms", "public_build": True,
                      "workflow_run_id": os.environ.get("GITHUB_RUN_ID"), "apk_sha256": sha256(args.apk)})
     (args.output / "build-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+    (args.output / "release-metadata.json").write_text(
+        json.dumps(update_manifest(metadata, alias), indent=2) + "\n", encoding="utf-8")
     if (args.root / "docs/dependency-inventory.json").exists():
         shutil.copyfile(args.root / "docs/dependency-inventory.json", args.output / "dependency-inventory.json")
     shutil.copyfile(notes, args.output / "RELEASE_NOTES.md")

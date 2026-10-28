@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only verified KAI updater files are exposed to Android's installer. -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="kai_verified_updates" path="kai-updates/" />
+</paths>

@@ -1,4 +1,4 @@
-# Modified for KAI Music on 2026-10-28; GPL-3.0. Creates drafts, never publishes.
+# Modified for KAI Music on 2026-10-29; GPL-3.0. Draft by default; publication needs explicit dispatch.
 name: Prepare approved KAI release
 on:
   push:
@@ -9,6 +9,11 @@ on:
         description: Existing approved tag matching the source version
         required: true
         type: string
+      publish_release:
+        description: Publish this approved release after all checks (otherwise create a draft)
+        required: true
+        default: false
+        type: boolean
 permissions:
   contents: read
 concurrency:
@@ -24,7 +29,7 @@ jobs:
       contents: write
     env:
       RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
-      KAI_PREVIOUS_VERSION_CODE: ${{ vars.KAI_PREVIOUS_VERSION_CODE || '168' }}
+      KAI_PREVIOUS_VERSION_CODE: ${{ vars.KAI_PREVIOUS_VERSION_CODE || '169' }}
       KAI_STABLE_RELEASES_ENABLED: ${{ vars.KAI_STABLE_RELEASES_ENABLED }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -123,6 +128,16 @@ jobs:
           flags=(--draft --verify-tag --latest=false)
           if [[ "$CHANNEL" == preview ]]; then flags+=(--prerelease); fi
           gh release create "$RELEASE_TAG" "$RUNNER_TEMP/kai-release/"* --repo "$GITHUB_REPOSITORY" --title "KAI Music $RELEASE_TAG" --notes-file "$RUNNER_TEMP/kai-release/RELEASE_NOTES.md" "${flags[@]}"
+      - name: Publish explicitly approved manual release
+        if: github.event_name == 'workflow_dispatch' && inputs.publish_release == true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [[ "$CHANNEL" == preview ]]; then
+            gh release edit "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --draft=false --latest=false
+          else
+            gh release edit "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --draft=false --latest=true
+          fi
       - name: Remove restored signing material
         if: always()
         run: |

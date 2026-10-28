@@ -107,6 +107,22 @@ class ArtifactPolicyTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             pr.verify_fingerprint("Signer #1 certificate SHA-256 digest: " + fingerprint + "\nSigner #2 certificate SHA-256 digest: " + fingerprint, fingerprint)
 
+    def test_updater_metadata_is_generated_from_inspected_apk(self):
+        inspected = {
+            "application_id": "echo.music.iad1tya.debug", "version_code": 170,
+            "version_name": "1.4.9", "min_sdk": 26,
+            "abis": ["arm64-v8a", "armeabi-v7a", "x86", "x86_64"],
+            "channel": "preview", "variant": "universalGms", "apk_sha256": "ab" * 32,
+            "signer_sha256": "cd" * 32, "source_commit": "ef" * 20,
+        }
+        manifest = pr.update_manifest(inspected, "KAI-universal-gms-preview.apk")
+        self.assertEqual(1, manifest["schema_version"])
+        self.assertEqual(170, manifest["version_code"])
+        self.assertEqual(inspected["apk_sha256"], manifest["apk_sha256"])
+        self.assertEqual(inspected["signer_sha256"], manifest["signer_sha256"])
+        self.assertEqual(inspected["source_commit"], manifest["source_commit"])
+        self.assertEqual("KAI-universal-gms-preview.apk", manifest["apk_file_name"])
+
     def test_archive_matches_commit_and_rejects_dirty_source(self):
         with tempfile.TemporaryDirectory() as d, tempfile.TemporaryDirectory() as output:
             subprocess.run(["git", "init", "-q", d], check=True)

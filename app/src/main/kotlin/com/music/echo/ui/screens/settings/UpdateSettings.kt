@@ -31,7 +31,7 @@ import echo.music.iad1tya.ui.component.Material3SettingsGroup
 import echo.music.iad1tya.ui.component.Material3SettingsItem
 import echo.music.iad1tya.ui.utils.backToMain
 
-/** Explicit browser action only: no feed, download worker, badges or automatic prompts. */
+/** KAI-only checks, channel choice and explicit verified download/install actions. */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateSettings(
@@ -40,9 +40,6 @@ fun UpdateSettings(
   highlightKey: String? = null,
 ) {
   val scrollState = rememberScrollState()
-  val uriHandler = LocalUriHandler.current
-  val context = LocalContext.current
-  val unavailable = stringResource(R.string.kai_link_unavailable)
   Column(
     Modifier.windowInsetsPadding(
         LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Horizontal)
@@ -54,25 +51,7 @@ fun UpdateSettings(
       Modifier.windowInsetsPadding(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Top))
     )
     Spacer(Modifier.height(16.dp))
-    Material3SettingsGroup(
-      scrollState = scrollState,
-      title = stringResource(R.string.app_updates_title),
-      items =
-        listOf(
-          Material3SettingsItem(
-            isHighlighted = highlightKey == stringResource(R.string.system_update),
-            icon = painterResource(R.drawable.update),
-            title = { Text(stringResource(R.string.kai_manual_updates)) },
-            description = { Text(stringResource(R.string.kai_manual_updates_description)) },
-            onClick = {
-              runCatching { uriHandler.openUri(KaiProject.RELEASES) }
-                .onFailure {
-                  Toast.makeText(context, unavailable, Toast.LENGTH_SHORT).show()
-                }
-            },
-          )
-        ),
-    )
+    echo.music.iad1tya.updates.KaiUpdateSettingsContent()
     Spacer(
       Modifier.windowInsetsPadding(
         LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Bottom)

@@ -508,6 +508,7 @@ class MainActivity : ComponentActivity() {
     LaunchedEffect(Unit) {
       echo.music.iad1tya.echomusic.updater.initializeKaiUpdatePlaceholder(context)
     }
+    echo.music.iad1tya.updates.KaiUpdateHost()
 
     val HasShownBirthdayNotificationKey = remember {
       androidx.datastore.preferences.core.booleanPreferencesKey("has_shown_birthday_notification")

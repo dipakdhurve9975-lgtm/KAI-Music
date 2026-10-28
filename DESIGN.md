@@ -190,3 +190,8 @@ The public GitHub default branch is a download page: README contains only the KA
 ## Additional Instagram profile (1.4.5, 27 October 2026)
 
 The existing developer link group places a second Instagram row immediately below the owner's row, reusing the same icon, label, validated link action and handle subtitle. The supplied QR decodes to the canonical `https://www.instagram.com/____rohittt.____09/` profile. `KaiLink.INSTAGRAM_FRIEND` and optional appended friend configuration fields keep the two profiles independent and preserve existing constructor compatibility. Public preview 1.4.5 uses version code166 with unchanged package/data identities. Keep the minimal GitHub README; update its download target only after publishing the new APK/source release.
+
+
+### KAI update controls (29 October 2026)
+
+Reuse Update Settings and its existing top bar: installed version, one primary check action, clear status, saved preview switch and quiet release links. One optional dialog contains actual notes, finite scrolling, download size/progress/cancel/retry and explicit Android installation. No startup-blocking screen, duplicate prompts, glass cards or silent downloads. The spiral appears only during actual checking/verification.

@@ -408,6 +408,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <provider
+            android:name=".updates.KaiUpdateFileProvider"
+            android:authorities="${applicationId}.updates"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/kai_update_paths" />
+        </provider>
         <!-- Covers for Android Auto / Automotive OS / the cluster, which only load
              content:// artwork. Serves only URIs signed by AutomotiveArtwork. -->
         <provider

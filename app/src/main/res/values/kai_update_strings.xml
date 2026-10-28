@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modified for KAI Music, 2026-10-29. GPL-3.0. -->
+<resources>
+    <string name="kai_updates_current">KAI v%1$s installed</string>
+    <string name="kai_updates_identity">Updates come only from KAI’s GitHub releases. Stable updates are checked by default.</string>
+    <string name="kai_updates_check">Check for updates</string>
+    <string name="kai_updates_checking">Checking KAI releases…</string>
+    <string name="kai_updates_current_result">No newer compatible KAI update is available on your selected channel.</string>
+    <string name="kai_updates_available">KAI v%1$s is available</string>
+    <string name="kai_updates_last_check">Last checked: %1$s</string>
+    <string name="kai_updates_preview">Include preview releases</string>
+    <string name="kai_updates_preview_description">Optional development builds. Updates must match this app’s package and signing identity.</string>
+    <string name="kai_updates_preview_warning">Preview release · may contain unfinished features</string>
+    <string name="kai_updates_install_explanation">Android asks you to approve installation. If needed, allow KAI to install apps in Android Settings, then return and tap Install update. Compatible updates keep your library and preferences.</string>
+    <string name="kai_updates_notes">Release notes</string>
+    <string name="kai_updates_full_notes">Read full notes on GitHub</string>
+    <string name="kai_updates_github">GitHub releases</string>
+    <string name="kai_updates_no_notes">This release has no published notes.</string>
+    <string name="kai_updates_size">Download size: %1$s MB</string>
+    <string name="kai_updates_progress">%1$d%% · %2$s / %3$s MB</string>
+    <string name="kai_updates_verifying">Verifying update…</string>
+    <string name="kai_updates_ready">Update verified and ready to install.</string>
+    <string name="kai_updates_download">Download update</string>
+    <string name="kai_updates_install">Install update</string>
+    <string name="kai_updates_allow_install">Allow installation</string>
+    <string name="kai_updates_cancel">Cancel download</string>
+    <string name="kai_updates_later">Maybe later</string>
+    <string name="kai_updates_retry">Retry download</string>
+    <string name="kai_updates_error_rate">GitHub’s request limit was reached. Please try again later.</string>
+    <string name="kai_updates_error_metadata">This release’s update information is incomplete or invalid. Check GitHub releases.</string>
+    <string name="kai_updates_error_verify">The update failed verification. It cannot be installed. Please retry or check GitHub releases.</string>
+    <string name="kai_updates_error_install">Android could not open installation. Check the installation permission and retry.</string>
+    <string name="kai_updates_error_download">The download did not complete. Check your connection and retry.</string>
+    <string name="kai_updates_error_network">Could not check KAI releases. Check your connection and try again.</string>
+</resources>

@@ -26,7 +26,7 @@ KAI is an independently maintained Android music application based on [Echo Musi
 
 - Vinyl, Normal and Lyrics presentations share the same playback session.
 - Animated vinyl record and remembered Ambient Normal/Vinyl presentation.
-- Five lyric presentations, selectable typefaces and restrained glow. Synchronization depends on genuine provider timestamps; untimed lyrics remain readable. Live progression still needs device verification after the 1.4.7 clock fix.
+- Five lyric presentations, selectable typefaces and restrained glow. Synchronization depends on genuine provider timestamps; untimed lyrics remain readable. The 1.4.9 candidate repairs the frozen lyric callback; real progression, scrolling and paused seeking were checked on the connected A001 phone.
 - Existing search, library, playlists, downloads and background playback are retained from the original project.
 - Dark/light themes, reduced-motion support and a home dock that hides while scrolling down.
 
@@ -44,7 +44,7 @@ Existing KAI vinyl-player capture (not a mockup; predates the About changes):
 2. Open the APK on Android 8.0 or newer. Allow installation from your chosen browser/file manager when Android asks.
 3. Install over a compatible KAI preview to preserve data. Preview updates require the same application ID and signing certificate. Do not uninstall to fix a signature mismatch without backing up your data.
 
-The current public APK is a **debug-signed preview**, package `echo.music.iad1tya.debug`. A future production build uses the existing release package configuration and is a separate installation identity; it must not silently replace the preview. No background OTA or silent installation is used.
+The current public APK is a **debug-signed preview**, package `echo.music.iad1tya.debug`. A future production build uses the existing release package configuration and is a separate installation identity; it must not silently replace the preview. KAI 1.4.9 adds optional checks of KAI releases only, with stable as the default and previews requiring opt-in. Downloads and Android installation require user action. Older 1.4.8 installations need one manual compatible update to receive this updater. No silent installation is used.
 
 ## Build From Source
 
@@ -67,7 +67,7 @@ On Windows use `gradlew.bat`. No Firebase configuration is needed for the public
 
 ## What's Different in KAI?
 
-KAI introduces its own connected K/music-note branding, vinyl rendering, liquid selectors, Ambient presentations, five lyric styles/typeface controls, home/library and dock refinements, spiral loading, and lifecycle/reduced-motion gating. It also retires the inherited automatic Echo update feed. These are modifications to an existing application, not claims of original authorship of its playback engine, providers or library. [Dated modification inventory](MODIFICATIONS.md).
+KAI introduces its own connected K/music-note branding, vinyl rendering, liquid selectors, Ambient presentations, five lyric styles/typeface controls, home/library and dock refinements, spiral loading, and lifecycle/reduced-motion gating. It retires the inherited automatic Echo update feed and adds a separate KAI-only updater with explicit verified downloads and Android installation approval. These are modifications to an existing application, not claims of original authorship of its playback engine, providers or library. [Dated modification inventory](MODIFICATIONS.md).
 
 ## Built Upon Echo Music
 
@@ -95,7 +95,7 @@ The original project and its dependency acknowledgments remain in [NOTICE.md](NO
 
 | Project | Contribution |
 | --- | --- |
-| [Echo Music](https://github.com/EchoMusicApp/Echo-Music) | Original application, playback, data, providers and UI foundation modified by KAI |
+| [Echo Music](https://github.com/EchoMusicApp/Echo-Music) | Original application, playback, data, providers and UI foundation modified by KAI; original lyric synchronization used as the regression reference |
 | [Compose Floating Tab Bar](https://github.com/elyesmansour/compose-floating-tab-bar) | Apache-2.0 vendored tab/accessory layout extended with KAI's expanded liquid navigation slot |
 | [Backdrop](https://github.com/Kyant0/backdrop) | Apache-2.0 vendored backdrop effects reused for bounded player/navigation glass with fallbacks |
 | [Plus Jakarta Sans](https://github.com/tokotype/PlusJakartaSans) | Default bundled typography, OFL-1.1 |

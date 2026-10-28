@@ -57,40 +57,43 @@ internal fun rememberLyricsPlaybackClock(
   val latestAdvancing by rememberUpdatedState(advancing)
   var castSampleTime by remember { mutableLongStateOf(SystemClock.elapsedRealtime()) }
 
-  fun sample() {
-    if (!visible || !lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) return
-    val preview = latestSlider()
-    seeking.value = preview != null
-    position.longValue =
-      (preview
-          ?: if (latestCasting) {
-            // Interpolate only between real receiver samples while the receiver reports playing.
-            latestCastPosition +
-              if (latestAdvancing) {
-                (SystemClock.elapsedRealtime() - castSampleTime).coerceIn(0L, 600L)
-              } else 0L
-          } else connection.player.currentPosition)
-        .coerceAtLeast(0L)
-  }
-  val latestSample by rememberUpdatedState(::sample)
+  val sample =
+    rememberLyricsClockSampler(
+      enabled = visible,
+      resumed = { lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) },
+      preview = { latestSlider() },
+      position = {
+        if (latestCasting) {
+          // Interpolate only between real receiver samples while the receiver reports playing.
+          latestCastPosition +
+            if (latestAdvancing) {
+              (SystemClock.elapsedRealtime() - castSampleTime).coerceIn(0L, 600L)
+            } else 0L
+        } else connection.player.currentPosition
+      },
+      accept = { value, previewing ->
+        seeking.value = previewing
+        position.longValue = value
+      },
+    )
   DisposableEffect(player, lifecycle, visible) {
     val listener =
       object : Player.Listener {
         override fun onEvents(player: Player, events: Player.Events) {
-          latestSample()
+          sample()
         }
       }
     if (visible) player.addListener(listener)
     onDispose { if (visible) player.removeListener(listener) }
   }
-  LaunchedEffect(castPosition, casting, castPlaying, castBuffering, trackId) {
+  LaunchedEffect(castPosition, casting, castPlaying, castBuffering, trackId, visible) {
     castSampleTime = SystemClock.elapsedRealtime()
     sample()
   }
   LaunchedEffect(visible, lifecycle, connection) {
     if (visible)
       lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-        snapshotFlow { latestSlider() }.collect { latestSample() }
+        snapshotFlow { latestSlider() }.collect { sample() }
       }
   }
   LaunchedEffect(visible, advancing, lifecycle, connection) {
@@ -99,7 +102,7 @@ internal fun rememberLyricsPlaybackClock(
         while (isActive) {
           // Sample the actual session clock; no elapsed-time accumulation or animation-clock
           // dependency.
-          latestSample()
+          sample()
           delay(16L)
         }
       }

@@ -238,3 +238,8 @@ The following existing files were changed before this attribution/release task. 
 ## This task
 
 About attribution and license viewer; manual KAI releases link; GPL/Apache/OFL materials; official licensed Google Sans Flex replacement; removal of inherited build-script Last.fm credentials; full sanitized source restoration; README/origins/notices/compliance/dependency evidence; signature-checked draft-release and download-refresh automation. Versions increase to 1.4.8 (169), preserving IDs/storage. Exact per-file task changes are listed in the final review report. No playback/lyrics algorithm is changed in this task.
+
+
+## 29 October 2026 — focused lyrics candidate 1.4.9
+
+Correct retained lyric-sampler visibility after asynchronous loading and test the callback through actual Compose recomposition. Preserve original Echo Music playback timestamp/index/scrolling behavior, KAI typography, providers, package/data/signing identities. Move the verified preview download to the top of README (published separately). The owner clarified that the other attached-prompt objectives remain requested; the KAI-only updater is combined after the isolated lyric regression check. The updater introduces metadata validation, bounded streaming downloads, installed-signer/APK verification, optional release dialogs and Android installation handoff; no music/data identity changes.
