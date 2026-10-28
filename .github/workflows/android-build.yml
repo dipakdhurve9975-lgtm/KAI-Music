@@ -19,9 +19,17 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-      - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
       - name: Install SDK and NDK
-        run: sdkmanager --channel=3 'platforms;android-37.0' 'build-tools;36.0.0' 'ndk;28.2.13676358'
+        run: |
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          test -x "$SDKMANAGER"
+          echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> "$GITHUB_PATH"
+          set +o pipefail
+          yes | "$SDKMANAGER" --licenses > /dev/null
+          license_status="${PIPESTATUS[1]}"
+          set -o pipefail
+          test "$license_status" -eq 0
+          "$SDKMANAGER" --channel=3 'platforms;android-37.0' 'build-tools;36.0.0' 'ndk;28.2.13676358' 
       - name: Verify public source and release tooling
         run: |
           python3 scripts/release_tools.py scan
