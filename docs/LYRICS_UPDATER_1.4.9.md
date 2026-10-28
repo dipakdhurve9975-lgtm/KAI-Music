@@ -1,5 +1,13 @@
 # KAI 1.4.9 verification — 29 October 2026
 
+## Publication and configuration update
+
+The owner subsequently approved publication. [KAI 1.4.9 Preview](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/tag/kai-preview-1.4.9) is public and installed. All eight assets matched local hashes/sizes; anonymous APK/source/metadata checks returned HTTP 200. README automation successfully updated the top download to 1.4.9. The exact release source/tag is `4ad38803774dde7f325ce6335759c00fa5e74ce8`; later documentation does not change that APK.
+
+Future preview automation is now configured: the existing matching preview key is stored only as an encrypted secret in the `kai-release` environment, the owner is its required reviewer, certificate/previous-code170 variables are configured, and preview automation is enabled. No replacement key was generated or committed. Stable automation remains disabled. A future genuine release is still needed to exercise the complete hosted signing/newer-version installer path. [Android CI for the released source](https://github.com/dipakdhurve9975-lgtm/KAI-Music/actions/runs/40780153006) was still building at publication verification; no hosted pass is inferred.
+
+The remaining text records the candidate implementation before that approval.
+
 KAI 1.4.9 (170) is built and installed on the connected A001. It is a Universal GMS debug preview candidate. New APK publication requires the owner's final review under phase 40 of the attached brief. README download-position and Instagram-removal changes are already public.
 
 ## Lyrics: actual cause and repair
@@ -48,7 +56,7 @@ Main components are `updates/KaiUpdatePolicy`, `KaiUpdateRepository`, `KaiUpdate
 
 The existing workflow creates drafts by default, refuses existing releases, and requires the existing signing key/fingerprint and automation gate. After first-publication approval and repository/environment configuration, an explicitly approved manual dispatch with `publish_release=true` can validate/upload/publish in one run. Ordinary commits and tag-triggered preparations do not publish APKs. README automation updates its top download block after a real release is published.
 
-Existing 1.4.8 has no KAI updater and needs one manual compatible installation of 1.4.9. Preview users must opt into previews for future preview updates. The separate production application ID cannot silently replace the debug preview. Hosted signing credentials/automation have not been configured or enabled by this task; never generate a replacement key as a substitute.
+Existing 1.4.8 has no KAI updater and needs one manual compatible installation of 1.4.9. Preview users must opt into previews for future preview updates. The separate production application ID cannot silently replace the debug preview. Hosted preview signing setup was completed after approval as recorded above; never generate a replacement key as a substitute.
 
 ## About and README
 

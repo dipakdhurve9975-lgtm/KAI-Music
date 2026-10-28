@@ -1,5 +1,11 @@
 # KAI releases
 
+## Current publication/configuration — 29 October 2026
+
+[KAI 1.4.9 Preview](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/tag/kai-preview-1.4.9) is now approved, public and installed. Its exact source is tag commit 4ad3880; APK/source/metadata links and all eight asset digests were verified. The top README download points to it.
+
+The existing matching preview key is now stored as an encrypted `kai-release` environment secret. The owner is the required environment reviewer; preview certificate, previous code170 and automation-enabled variables are configured. Stable publishing is explicitly disabled. Future approved tags/manual dispatches can use the configured preview workflow; its complete hosted signing path still needs a genuine future release run. Do not rerun current published tags or replace the signing key. The setup steps below remain recovery/reference instructions, and the 1.4.8 paragraph describes the pre-candidate baseline.
+
 The distributed application is currently a **Universal GMS debug preview**. No stable release exists. A README-only change never creates an APK release.
 
 ## Existing downloads
