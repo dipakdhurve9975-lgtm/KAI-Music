@@ -2,6 +2,22 @@
 
 An independent open-source music experience, built upon the foundation of Echo Music.
 
+## Download
+
+<!-- kai-downloads:start -->
+**No stable KAI release is available yet.** The current download is a debug-signed preview, not a stable build.
+
+[![Download KAI preview APK](assets/download.svg)](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.8/KAI-universal-gms-preview.apk)
+
+Current preview: **1.4.8**, Universal GMS, Android 8.0+.
+
+[Matching preview source ZIP](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.8/KAI-Music-source-1.4.8.zip)
+
+[View All Releases](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases) · [Source Code](https://github.com/dipakdhurve9975-lgtm/KAI-Music)
+
+Universal includes ARM64, ARMv7, x86 and x86_64 native libraries. GMS enables Google Cast; Google-dependent features need compatible services. No non-GMS APK is currently published.
+<!-- kai-downloads:end -->
+
 ## Overview
 
 KAI is an independently maintained Android music application based on [Echo Music](https://github.com/EchoMusicApp/Echo-Music). It keeps the original playback and library foundation while adding KAI's visual identity and player customizations. Maintained by [@dipakdhurve9975-lgtm](https://github.com/dipakdhurve9975-lgtm).
@@ -21,22 +37,6 @@ These features are implemented in source. A successful build does not establish 
 Existing KAI vinyl-player capture (not a mockup; predates the About changes):
 
 <img src="assets/vinyl-player.png" alt="KAI vinyl Now Playing screen" width="360" />
-
-## Download
-
-<!-- kai-downloads:start -->
-**No stable KAI release is available yet.** The current download is a debug-signed preview, not a stable build.
-
-[![Download KAI preview APK](assets/download.svg)](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.8/KAI-universal-gms-preview.apk)
-
-Current preview: **1.4.8**, Universal GMS, Android 8.0+.
-
-[Matching preview source ZIP](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases/download/kai-preview-1.4.8/KAI-Music-source-1.4.8.zip)
-
-[View All Releases](https://github.com/dipakdhurve9975-lgtm/KAI-Music/releases) · [Source Code](https://github.com/dipakdhurve9975-lgtm/KAI-Music)
-
-Universal includes ARM64, ARMv7, x86 and x86_64 native libraries. GMS enables Google Cast; Google-dependent features need compatible services. No non-GMS APK is currently published.
-<!-- kai-downloads:end -->
 
 ## Installation
 
@@ -69,7 +69,7 @@ On Windows use `gradlew.bat`. No Firebase configuration is needed for the public
 
 KAI introduces its own connected K/music-note branding, vinyl rendering, liquid selectors, Ambient presentations, five lyric styles/typeface controls, home/library and dock refinements, spiral loading, and lifecycle/reduced-motion gating. It also retires the inherited automatic Echo update feed. These are modifications to an existing application, not claims of original authorship of its playback engine, providers or library. [Dated modification inventory](MODIFICATIONS.md).
 
-## Project Origins
+## Built Upon Echo Music
 
 KAI Music is an independent modification of Echo Music, an open-source Android music application originally developed by Aditya and its contributors. Echo Music provided the foundation that made KAI possible.
 
